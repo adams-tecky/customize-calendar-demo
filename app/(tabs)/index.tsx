@@ -11,7 +11,7 @@ import { View, Text, Animated, TouchableOpacity } from "react-native";
 
 export default function HomeScreen() {
   const [selectedDate, setSelectedDate] = useState("");
-  const slideAnim = useRef(new Animated.Value(300)).current;
+  const slideAnim = useRef(new Animated.Value(400)).current;
 
   const handleDayPress = (day: any) => {
     setSelectedDate(day.dateString);
@@ -32,64 +32,71 @@ export default function HomeScreen() {
     }).start();
   };
   return (
-    // <ParallaxScrollView
-    //   headerBackgroundColor={{ light: "#A1CEDC", dark: "#1D3D47" }}
-    //   headerImage={
-    //     <Image
-    //       source={require("@/assets/images/partial-react-logo.png")}
-    //       style={styles.reactLogo}
-    //     />
-    //   }
-    // >
-    <View style={styles.container}>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-
-      <ThemedView style={styles.stepContainer}>
-        <Calendar
-          onDayPress={handleDayPress}
-          markingType="multi-period"
-          theme={{
-            "stylesheet.day.basic": {
-              base: {
-                height: 50, // Set this to the desired height
-                justifyContent: "center",
-                alignItems: "center",
-              },
-            },
-          }}
-          markedDates={{
-            "2024-11-14": {
-              periods: [
-                { startingDay: true, endingDay: true, color: "#5f9ea0" },
-              ],
-            },
-          }}
+    <ParallaxScrollView
+      headerBackgroundColor={{ light: "#A1CEDC", dark: "#1D3D47" }}
+      headerImage={
+        <Image
+          source={require("@/assets/images/partial-react-logo.png")}
+          style={styles.reactLogo}
         />
-      </ThemedView>
-      <Animated.View
-        style={[
-          styles.slideView,
-          {
-            transform: [{ translateY: slideAnim }],
-          },
-        ]}
-      >
-        <Text style={styles.selectedDateText}>
-          Selected Date: {selectedDate}
-        </Text>
-        <TouchableOpacity onPress={closeSlideView} style={styles.closeButton}>
-          <Text style={styles.closeButtonText}>Close</Text>
-        </TouchableOpacity>
-      </Animated.View>
-    </View>
-    // </ParallaxScrollView>
+      }
+    >
+      <View style={styles.container}>
+        <ThemedView style={styles.titleContainer}>
+          <ThemedText type="title">Welcome!</ThemedText>
+          <HelloWave />
+        </ThemedView>
+
+        <ThemedView style={styles.stepContainer}>
+          <Calendar
+            onDayPress={handleDayPress}
+            markingType="multi-period"
+            theme={{
+              "stylesheet.day.basic": {
+                base: {
+                  height: 50, // Set this to the desired height
+                  justifyContent: "center",
+                  alignItems: "center",
+                },
+              },
+            }}
+            markedDates={{
+              "2024-11-14": {
+                periods: [
+                  { startingDay: true, endingDay: true, color: "#5f9ea0" },
+                ],
+              },
+            }}
+          />
+        </ThemedView>
+        <Animated.View
+          style={[
+            styles.slideView,
+            {
+              transform: [{ translateY: slideAnim }],
+            },
+          ]}
+        >
+          <Text style={styles.selectedDateText}>
+            Selected Date: {selectedDate}
+          </Text>
+          <TouchableOpacity onPress={closeSlideView} style={styles.closeButton}>
+            <Text style={styles.closeButtonText}>Close</Text>
+          </TouchableOpacity>
+        </Animated.View>
+      </View>
+    </ParallaxScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+  reactLogo: {
+    height: 178,
+    width: 290,
+    bottom: 0,
+    left: 0,
+    position: "absolute",
+  },
   titleContainer: {
     flexDirection: "row",
     alignItems: "center",
@@ -98,13 +105,6 @@ const styles = StyleSheet.create({
   stepContainer: {
     gap: 8,
     marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: "absolute",
   },
   container: {
     flex: 1,
@@ -115,10 +115,10 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
+    height: 250,
     backgroundColor: "#fff",
     padding: 20,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
+    borderRadius: 20,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.3,
